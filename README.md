@@ -1,16 +1,18 @@
-# 📊 Marketing Analytics Focus: Privacy-First ROI Engine
+# 📊 Digital Marketing Performance Analysis: Privacy-First ROI Engine
 
-![SQL Server](https://img.shields.io/badge/Database-SQL_Server-CC2927?style=for-the-badge&logo=microsoftsqlserver)
-![Power BI](https://img.shields.io/badge/Visualisation-Power_BI-F2C811?style=for-the-badge&logo=powerbi)
-![Excel](https://img.shields.io/badge/Data-Excel_%7C_CSV-217346?style=for-the-badge&logo=microsoftexcel)
-![Privacy](https://img.shields.io/badge/Compliance-Privacy_Firewall-0078D4?style=for-the-badge&logo=microsoftazure)
-![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
+[![SQL Server](https://img.shields.io/badge/Database-SQL_Server-CC2927?style=for-the-badge&logo=microsoftsqlserver)](https://www.microsoft.com/sql-server)
+[![Power BI](https://img.shields.io/badge/Visualisation-Power_BI-F2C811?style=for-the-badge&logo=powerbi)](https://powerbi.microsoft.com)
+[![Excel](https://img.shields.io/badge/Data-Excel_%7C_CSV-217346?style=for-the-badge&logo=microsoftexcel)](https://microsoft.com/excel)
+[![Privacy](https://img.shields.io/badge/Compliance-Privacy_Firewall-0078D4?style=for-the-badge&logo=microsoftazure)](https://www.oaic.gov.au)
+[![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)](https://github.com/123456lugc/Data-Analysis-Marketing)
 
 > **An end-to-end analytics pipeline synchronising 540,000+ global e-commerce transactions with multi-channel ad data to expose $100K+ in spend inefficiencies — built with a proprietary SQL Privacy Firewall for legislative compliance.**
 
 ---
 
-![Dashboard Preview](Dashboard_Preview.png)
+## 📊 Dashboard Preview
+
+*(See `sample_dashboards/` folder for full screenshots)*
 
 ---
 
@@ -72,10 +74,11 @@ COUNT(DISTINCT CustomerID) AS daily_customers
 -- sales_ads_joined_focus contains zero customer-level identifiers.
 SELECT
     a.month, a.day, a.campaign_number,
-    a.cost AS total_ad_spend,
-    a.revenue AS total_ad_revenue,
-    s.daily_revenue, s.daily_orders,
-    s.daily_customers,       -- aggregate count only, not raw IDs
+    a.cost              AS total_ad_spend,
+    a.revenue           AS total_ad_revenue,
+    s.daily_revenue,
+    s.daily_orders,
+    s.daily_customers,  -- aggregate count only, not raw IDs
     s.daily_units_sold
     -- No InvoiceNo, no CustomerID, no StockCode
 INTO sales_ads_joined_focus
@@ -84,7 +87,7 @@ LEFT JOIN daily_sales_apr_jun s
     ON a.day = s.day_num AND a.month = s.month_name;
 ```
 
-**Legislative alignment:** GDPR Article 5 (data minimisation), Australian Privacy Act 1988 (APP 11 — security of personal information).
+**Legislative alignment:** Australian Privacy Act 1988 (Cth) — APP 6 (use or disclosure), APP 11 (security of personal information).
 
 ---
 
@@ -118,7 +121,7 @@ Both datasets are publicly available on Kaggle under their respective licences. 
 - **`COALESCE`** — Converts NULL sales values on unmatched JOIN rows to zero, preventing NULL gaps in aggregations
 - **`DATENAME` / `DAY` / `MONTH`** — Resolves the data type mismatch between the ads table (month as text: "April") and the sales table (month as DATE) by normalising both to the same format before joining
 - **`CAST` / `DECIMAL(18,2)`** — Consistent financial precision throughout
-- **`NULLIF`** — Safe division to prevent divide-by-zero errors in CTR/CPA/ROAS
+- **`NULLIF`** — Safe division to prevent divide-by-zero errors in CTR/CPA/ROAS calculations
 - **`CASE WHEN`** — Custom month ordering in `ORDER BY` clauses
 - **`COUNT(DISTINCT)`** — Accurate deduplication for customers and orders
 
@@ -168,7 +171,7 @@ All KPI cards apply a configurable FX currency conversion rate for cross-market 
 
 **Insight:** June delivered almost identical revenue to May ($94M vs $94M) while spending 42% less. April consumed the most budget ($67K) yet generated the lowest ROAS — meaning the business was paying more per return in its heaviest spend month.
 
-**Recommendation:** Reallocate 30% of the April budget ($~20K) into the timing and targeting patterns of June. May and June achieved near-identical revenue at significantly different spend levels, indicating that audience saturation — not budget — drives results in this campaign window.
+**Recommendation:** Reallocate 30% of the April budget (~$20K) into the timing and targeting patterns of June. The data shows that audience saturation — not budget size — drives results in this campaign window. A shift of this scale is projected to improve overall ROAS by approximately 40–60%.
 
 ---
 
@@ -180,11 +183,11 @@ All KPI cards apply a configurable FX currency conversion rate for cross-market 
 | 728 × 90 | $64,342 | 569,606 | 24% |
 | 300 × 250 | $43,171 | 411,214 | 16% |
 
-**Recommendation:** Consolidate creative investment into 240×400 format. Deprioritise lower-performing sizes in future campaign planning.
+**Recommendation:** Consolidate creative investment into the 240×400 format. Deprioritise lower-performing sizes (468×60, 800×250) in future campaign planning — together they generated less than 0.1% of revenue.
 
 ---
 
-### 💡 Insight 3 — Campaign 1 Dominates, But Campaign 2 Is More Efficient
+### 💡 Insight 3 — Campaign 2 Is the Efficiency Leader
 
 | Campaign | Ad Spend | Revenue | ROAS | Clicks |
 |---|---|---|---|---|
@@ -192,7 +195,7 @@ All KPI cards apply a configurable FX currency conversion rate for cross-market 
 | **Camp 2** | **$17,037** | **$34,890** | **2.05× ✅** | 881,158 |
 | Camp 3 | $7,467 | $10,839 | 1.45× | 202,543 |
 
-**Recommendation:** Campaign 2 delivers the highest ROAS despite receiving only 11% of total budget. A controlled budget increase of 20–30% into Campaign 2 is a low-risk, high-confidence optimisation.
+**Recommendation:** Campaign 2 delivers the highest ROAS despite receiving only 11% of total budget. Campaign 1 receives 85% of spend yet returns less per dollar. A controlled budget increase of 20–30% into Campaign 2 is a low-risk, high-confidence optimisation.
 
 ---
 
@@ -209,14 +212,14 @@ All KPI cards apply a configurable FX currency conversion rate for cross-market 
 │  STAGE 2 — THE PRIVACY FIREWALL  🛡️                    │
 │  CustomerID is used only to compute daily_customers     │
 │  then DROPPED before data reaches the reporting layer.  │
-│  No PII enters Power BI. Compliant with GDPR & APA.    │
+│  No PII enters Power BI. Compliant with Privacy Act 1988│
 └────────────────────────┬────────────────────────────────┘
                          ↓
 ┌─────────────────────────────────────────────────────────┐
 │  STAGE 3 — ANALYTICS ENGINE                             │
 │  Cleaned sales aggregated daily (Apr–Jun)               │
 │  Joined with ad performance on day + month key          │
-│  Derived metrics: CTR, CPA, ROAS, profit_after_ads     │
+│  Derived metrics: CTR, CPA, ROAS, profit_after_ads      │
 └────────────────────────┬────────────────────────────────┘
                          ↓
 ┌─────────────────────────────────────────────────────────┐
@@ -231,13 +234,11 @@ All KPI cards apply a configurable FX currency conversion rate for cross-market 
 
 ## 🎯 Executive Recommendations
 
-These are the three actionable decisions this analysis supports:
-
 **1. Shift 30% of April's budget to June-style targeting**
-June achieved $94M revenue on $27K spend. April spent $67K for $76M revenue — 2.5× more spend for 19% less return. A 30% reallocation (~$20K) applied to June's timing and format mix is projected to increase net ROAS by 400–600 basis points.
+June achieved $94M revenue on $27K spend. April spent $67K for $76M revenue — 2.5× more spend for 19% less return. A 30% reallocation (~$20K) applied to June's timing and format mix is projected to improve overall ROAS by approximately 40–60%.
 
 **2. Consolidate creative spend into the 240×400 banner format**
-This single format generated 49% of all revenue ($129,930) and 45% of all clicks. The next two formats combined produce less than half of that. Reducing spend on underperforming sizes and concentrating on 240×400 is the lowest-risk, highest-confidence optimisation available.
+This single format generated 49% of all revenue ($129,930) and 45% of all clicks. The next two formats combined produce less than half of that. Reducing spend on the four underperforming sizes and concentrating on 240×400 is the lowest-risk, highest-confidence optimisation available.
 
 **3. Increase Campaign 2's budget by 20–30%**
 Campaign 2 has the highest ROAS (2.05×) but receives only 11% of total budget. Campaign 1 receives 85% of spend yet delivers a lower return per dollar. A controlled increase into Campaign 2 with performance monitoring over 30 days would validate whether this efficiency holds at scale.
@@ -268,7 +269,7 @@ The Power BI dashboard (`MarketingProjectDashboard.pbix`) contains:
 Acknowledging what a dataset *cannot* answer is as important as what it can. This analysis has three honest constraints:
 
 **1. No product-level attribution**
-The advertising dataset provides campaign-level metrics (clicks, impressions, conversions) but contains no product codes. It is not possible to determine which specific product a campaign drove — the two datasets share no product key.
+The advertising dataset provides campaign-level metrics but contains no product codes. It is not possible to determine which specific product a campaign drove — the two datasets share no product key.
 
 **2. Mismatched time coverage**
 The sales dataset covers December 2010 – December 2011 (full year). The ad dataset covers only April–June. The analysis is valid within that window but cannot speak to seasonal performance outside it.
@@ -283,14 +284,21 @@ Revenue and ad spend are joined on date — this establishes correlation, not a 
 
 ---
 
+## 📄 Documentation
+
+| Document | Purpose |
+|---|---|
+| [`docs/Privacy_Impact_Assessment.pdf`](docs/Privacy_Impact_Assessment.pdf) | Full privacy analysis — PI identification, SQL Firewall architecture, legislative alignment, risk register |
+| [`docs/DataAnalysis_Worksheet.pdf`](docs/DataAnalysis_Worksheet.pdf) | Project worksheet — SMART business questions, data flow, cleaning log, key statistics, recommendations |
+
+---
+
 ## 🚀 How to Reproduce This Project
 
-### Requirements
+**Tools required:**
 - SQL Server Express + SSMS *(free — Microsoft)*
 - Power BI Desktop *(free — Microsoft)*
 - The two CSV files from Kaggle *(links in Dataset section above)*
-
-### Steps
 
 ```sql
 -- 1. Create database
@@ -315,31 +323,29 @@ USE MarketingProject;
 ## 📂 Repository Structure
 
 ```
-Marketing-Analytics-Focus/
+Data-Analysis-Marketing/
 │
 ├── README.md                            ← Executive summary (you are here)
-├── marketing_analysis.sql               ← Full technical engine + Privacy Firewall
-├── Dashboard_Preview.png                ← Dashboard screenshot (embedded above)
-├── requirements.txt                     ← Tools and versions
+├── marketing_analysis.sql               ← Full SQL pipeline + Privacy Firewall
 │
 ├── docs/
-│   ├── Privacy_Impact_Assessment.pdf
-│   └── DataAnalysisSkillsetProjectWorksheet.pdf
+│   ├── Privacy_Impact_Assessment.pdf    ← Data governance document
+│   └── DataAnalysis_Worksheet.pdf       ← TAFE assessment worksheet
 │
 └── sample_dashboards/
-    ├── dashboard_overview.html          ← Interactive HTML replica
-    ├── roas_trend.png
-    └── cpa_trend.png
+    ├── dashboard_overview.png           ← Full dashboard screenshot
+    ├── roas_trend.png                   ← ROAS trend chart
+    └── cpa_trend.png                    ← CPA trend chart
 ```
 
 ---
 
 ## 🤝 Let's Connect
 
-This project was completed as part of the Applied Data Analysis Skillset assessment. I am actively seeking **Data Analyst** or **Business Intelligence** roles where SQL, Power BI, and business-first thinking can drive measurable commercial outcomes.
+This project was completed as part of the Applied Data Analysis Skillset assessment at TAFE. I am actively seeking **Data Analyst** or **Business Intelligence** roles where SQL, Power BI, and business-first thinking can drive measurable commercial outcomes.
 
-📧 [lucascamargo@outlook.com.au](mailto:lucascamargo@outlook.com.au)
-🔗 [linkedin.com/in/lucas-camargo-614307139](https://www.linkedin.com/in/lucas-camargo-614307139/)
+- 📧 [lucascamargo@outlook.com.au](mailto:lucascamargo@outlook.com.au)
+- 🔗 [linkedin.com/in/lucas-camargo-614307139](https://www.linkedin.com/in/lucas-camargo-614307139/)
 
 ---
 
@@ -347,12 +353,3 @@ This project was completed as part of the Applied Data Analysis Skillset assessm
 
 © 2026 Lucas Camargo. All Rights Reserved.
 Raw datasets are publicly available on Kaggle under their respective licences. All SQL transformations, DAX measures, analytical frameworks, and documentation are original work by the author.
-
----
-
-## 📄 Documentation
-
-| Document | Purpose |
-|---|---|
-| [`docs/Privacy_Impact_Assessment.pdf`](docs/Privacy_Impact_Assessment.pdf) | Full privacy analysis — PI identification, SQL Firewall architecture, legislative alignment, risk register |
-| [`docs/DataAnalysis_Worksheet.pdf`](docs/DataAnalysis_Worksheet.pdf) | Project worksheet — business questions, data flow, cleaning log, visualisation analysis, recommendations |
