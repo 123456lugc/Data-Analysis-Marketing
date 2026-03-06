@@ -4,7 +4,7 @@
 [![Power BI](https://img.shields.io/badge/Visualisation-Power_BI-F2C811?style=for-the-badge&logo=powerbi)](https://powerbi.microsoft.com)
 [![Excel](https://img.shields.io/badge/Data-Excel_%7C_CSV-217346?style=for-the-badge&logo=microsoftexcel)](https://microsoft.com/excel)
 [![Privacy](https://img.shields.io/badge/Compliance-Privacy_Firewall-0078D4?style=for-the-badge&logo=microsoftazure)](https://www.oaic.gov.au)
-[![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)](https://github.com/123456lugc/Data-Analysis-Marketing)
+[![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)](https://github.com/Lucas-GCamargo/Data-Analysis-Marketing)
 
 > **An end-to-end analytics pipeline synchronising 540,000+ global e-commerce transactions with multi-channel ad data to expose $100K+ in spend inefficiencies — built with a proprietary SQL Privacy Firewall for legislative compliance.**
 
