@@ -4,7 +4,7 @@
 [![Power BI](https://img.shields.io/badge/Visualisation-Power_BI-F2C811?style=for-the-badge&logo=powerbi)](https://powerbi.microsoft.com)
 [![Excel](https://img.shields.io/badge/Data-Excel_%7C_CSV-217346?style=for-the-badge&logo=microsoftexcel)](https://microsoft.com/excel)
 [![Privacy](https://img.shields.io/badge/Compliance-Privacy_Firewall-0078D4?style=for-the-badge&logo=microsoftazure)](https://www.oaic.gov.au)
-[![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)](https://github.com/Lucas-GCamargo/Data-Analysis-Marketing)
+[![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)](https://github.com/123456lugc/Data-Analysis-Marketing)
 
 > **An end-to-end analytics pipeline synchronising 540,000+ global e-commerce transactions with multi-channel ad data to expose $100K+ in spend inefficiencies — built with a proprietary SQL Privacy Firewall for legislative compliance.**
 
@@ -95,8 +95,8 @@ LEFT JOIN daily_sales_apr_jun s
 
 | Dataset | Source | Rows | Coverage |
 |---|---|---|---|
-| Online Advertising Digital Marketing Data | Kaggle — naniruddhan | 15,408 | April, May, June |
-| Global E-Commerce Transactions | Kaggle — idriskoladeaderoju | 541,909 | Dec 2010 – Dec 2011 |
+| [Online Advertising Digital Marketing Data](https://www.kaggle.com/datasets/naniruddhan/online-advertising-digital-marketing-data) | Kaggle — naniruddhan | 15,408 | April, May, June |
+| [Global E-Commerce Transactions](https://www.kaggle.com/idriskoladeaderoju) | Kaggle — idriskoladeaderoju | 541,909 | Dec 2010 – Dec 2011 |
 
 Both datasets are publicly available on Kaggle under their respective licences. All analytical work, SQL transformations, DAX measures, and documentation are original work by the author.
 
@@ -183,7 +183,7 @@ All KPI cards apply a configurable FX currency conversion rate for cross-market 
 | 728 × 90 | $64,342 | 569,606 | 24% |
 | 300 × 250 | $43,171 | 411,214 | 16% |
 
-**Recommendation:** Consolidate creative investment into the 240×400 format. Deprioritise lower-performing sizes (468×60, 800×250) in future campaign planning — together they generated less than 0.1% of revenue.
+**Recommendation:** Consolidate creative investment into the 240×400 format. Deprioritise lower-performing sizes (468×60, 800×250) in future campaign planning — the remaining five banner sizes combined account for approximately 11% of total revenue, each individually below 5%.
 
 ---
 
@@ -194,6 +194,8 @@ All KPI cards apply a configurable FX currency conversion rate for cross-market 
 | Camp 1 | $150,689 | $230,535 | 1.53× | 1,409,136 |
 | **Camp 2** | **$17,037** | **$34,890** | **2.05× ✅** | 881,158 |
 | Camp 3 | $7,467 | $10,839 | 1.45× | 202,543 |
+
+> **Note:** Campaign-level spend totals ($175,193 combined) reflect the full raw dataset before null-row cleaning. The overall KPI table ($142,224) reflects the cleaned dataset after invalid rows were removed. Both figures are accurate within their respective scopes.
 
 **Recommendation:** Campaign 2 delivers the highest ROAS despite receiving only 11% of total budget. Campaign 1 receives 85% of spend yet returns less per dollar. A controlled budget increase of 20–30% into Campaign 2 is a low-risk, high-confidence optimisation.
 
@@ -309,7 +311,7 @@ USE MarketingProject;
 --    Right-click database → Tasks → Import Flat File
 --    Creates: raw_ads, raw_sales
 
--- 3. Run marketing_analysis.sql (this repo)
+-- 3. Run marketing_analysis (1).sql (this repo)
 --    Produces: raw_ads_clean, raw_sales_clean,
 --              daily_sales_apr_jun, sales_ads_joined_focus
 
@@ -326,7 +328,7 @@ USE MarketingProject;
 Data-Analysis-Marketing/
 │
 ├── README.md                            ← Executive summary (you are here)
-├── marketing_analysis.sql               ← Full SQL pipeline + Privacy Firewall
+├── marketing_analysis (1).sql       ← Full SQL pipeline + Privacy Firewall
 │
 ├── docs/
 │   ├── Privacy_Impact_Assessment.pdf    ← Data governance document
